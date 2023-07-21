@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: @project.name@
+  kafka:
+    bootstrap-servers: http://localhost:9092
+    producer:
+      topicName: topic1
+      client-id: @project.name@
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
