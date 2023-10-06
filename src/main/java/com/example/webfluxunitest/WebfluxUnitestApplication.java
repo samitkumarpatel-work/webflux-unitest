@@ -31,9 +31,11 @@ class Routers {
 		return RouterFunctions
 				.route()
 				.path("/kafka", builder -> builder
-						.POST("/produce", this::kafkaProducer))
+						.POST("/produce", this::kafkaProducer)
+				)
 				.path("/db", builder -> builder
-						.GET("", request -> ServerResponse.noContent().build()))
+						.GET("", request -> ServerResponse.noContent().build())
+				)
 				.build();
 	}
 
@@ -42,7 +44,7 @@ class Routers {
 				.bodyToMono(Message.class)
 				.log()
 				.map(message -> message)
-				.flatMap(message -> kafkaService.produce(message))
+				.flatMap(kafkaService::produce)
 				.flatMap(o -> ServerResponse.ok().bodyValue(o));
 	}
 }
